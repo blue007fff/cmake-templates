@@ -7,24 +7,16 @@ if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
         CACHE STRING "Vcpkg toolchain file")
 endif()
 
-# GoogleTest — pinned to full SHA for reproducible builds
-FetchContent_Declare(
-    googletest
-    GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG        f8d7d77c06936315286eb55f8de22cd23c188571  # v1.14.0
-    GIT_SHALLOW    TRUE
-    SYSTEM
-)
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)  # prevents MSVC CRT mismatch on Windows
-FetchContent_MakeAvailable(googletest)
-
 # vcpkg / FetchContent dual-mode example (uncomment to use):
+# vcpkg.json lists the package names; this block wires them into the CMake build.
+# With vcpkg: find_package() picks up the pre-built package from the vcpkg tree.
+# Without vcpkg: FetchContent builds it from source automatically.
 #
 # find_package(fmt CONFIG QUIET)
 # if(NOT fmt_FOUND)
 #     FetchContent_Declare(fmt
 #         GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-#         GIT_TAG        SHA_FOR_10.2.1  # 10.2.1
+#         GIT_TAG        e69e5f977d458f2650bb346dadf2ad30c5320281  # 10.2.1
 #         GIT_SHALLOW    TRUE
 #         SYSTEM)
 #     set(FMT_TEST OFF CACHE BOOL "" FORCE)
