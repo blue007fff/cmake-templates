@@ -16,6 +16,7 @@ target_link_libraries(MyApp PRIVATE core utils)
 
 option(BUILD_TESTS "Build tests" ON)
 if(BUILD_TESTS)
+    include(FetchContent)
     FetchContent_Declare(
         googletest
         GIT_REPOSITORY https://github.com/google/googletest.git
@@ -24,6 +25,7 @@ if(BUILD_TESTS)
         SYSTEM
     )
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)  # prevents MSVC CRT mismatch on Windows
+    set(INSTALL_GTEST OFF CACHE BOOL "" FORCE)          # don't install gtest alongside this app
     FetchContent_MakeAvailable(googletest)
     enable_testing()
     add_subdirectory(tests)
