@@ -12,7 +12,7 @@ add_subdirectory(libs/core)
 add_subdirectory(libs/utils)
 
 add_executable(MyApp src/main.cpp)
-target_link_libraries(MyApp PRIVATE core utils)
+target_link_libraries(MyApp PRIVATE core utils spdlog::spdlog)
 
 option(BUILD_TESTS "Build tests" ON)
 if(BUILD_TESTS)
