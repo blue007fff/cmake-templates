@@ -1,4 +1,11 @@
 cmake_minimum_required(VERSION 3.25)
+
+# CMAKE_TOOLCHAIN_FILE must be set before project() — vcpkg toolchain is loaded at that point.
+if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+    set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+        CACHE STRING "Vcpkg toolchain file")
+endif()
+
 project(MyApp VERSION 0.1.0 LANGUAGES CXX)
 
 # C++20 required — will error instead of silently falling back

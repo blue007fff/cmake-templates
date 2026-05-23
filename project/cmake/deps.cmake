@@ -1,12 +1,5 @@
 include(FetchContent)
 
-# vcpkg integration: if VCPKG_ROOT is set, activate the vcpkg toolchain.
-# Without vcpkg, all dependencies fall back to FetchContent automatically.
-if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
-    set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
-        CACHE STRING "Vcpkg toolchain file")
-endif()
-
 # vcpkg / FetchContent dual-mode example (uncomment to use):
 # vcpkg.json lists the package names; this block wires them into the CMake build.
 # With vcpkg: find_package() picks up the pre-built package from the vcpkg tree.
