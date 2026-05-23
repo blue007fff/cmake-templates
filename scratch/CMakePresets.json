@@ -16,7 +16,6 @@
       "hidden": true,
       "inherits": "base",
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "cl",
         "CMAKE_CXX_COMPILER": "cl"
       }
     },

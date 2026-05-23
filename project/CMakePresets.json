@@ -14,7 +14,11 @@
     {
       "name": "windows-base",
       "hidden": true,
-      "inherits": "base"
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "cl",
+        "CMAKE_CXX_COMPILER": "cl"
+      }
     },
     {
       "name": "mingw-base",
