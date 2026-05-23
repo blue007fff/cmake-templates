@@ -6,6 +6,7 @@
       "hidden": true,
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/${presetName}",
+      "installDir": "${sourceDir}/install/${presetName}",
       "cacheVariables": {
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
       }
@@ -41,14 +42,14 @@
     }
   ],
   "buildPresets": [
-    { "name": "debug",          "configurePreset": "x64-debug" },
-    { "name": "release",        "configurePreset": "x64-release" },
-    { "name": "relwithdebinfo", "configurePreset": "x64-relwithdebinfo" },
-    { "name": "linux-debug",    "configurePreset": "linux-debug" }
+    { "name": "x64-debug",          "configurePreset": "x64-debug" },
+    { "name": "x64-release",        "configurePreset": "x64-release" },
+    { "name": "x64-relwithdebinfo", "configurePreset": "x64-relwithdebinfo" },
+    { "name": "linux-debug",        "configurePreset": "linux-debug" }
   ],
   "testPresets": [
     {
-      "name": "debug",
+      "name": "x64-debug",
       "configurePreset": "x64-debug",
       "output": { "verbosity": "verbose" }
     },
