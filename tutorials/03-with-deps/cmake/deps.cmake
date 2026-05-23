@@ -11,18 +11,17 @@ FetchContent_Declare(
     GIT_SHALLOW    TRUE
     SYSTEM
 )
-# Suppress fmt's own test targets from appearing in this project's build.
 set(FMT_TEST OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(fmt)
 
-# Add more libraries here using the same pattern:
-#
-# FetchContent_Declare(
-#   spdlog
-#   GIT_REPOSITORY https://github.com/gabime/spdlog.git
-#   GIT_TAG        SHA_FOR_v1.13.0  # v1.13.0
-#   GIT_SHALLOW    TRUE
-#   SYSTEM
-# )
-# set(SPDLOG_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-# FetchContent_MakeAvailable(spdlog)
+FetchContent_Declare(
+    spdlog
+    GIT_REPOSITORY https://github.com/gabime/spdlog.git
+    GIT_TAG        f355b3d58f7067eee1706ff3c801c2361011f3d5  # v1.15.1
+    GIT_SHALLOW    TRUE
+    SYSTEM
+)
+set(SPDLOG_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+# Use the fmt we already fetched instead of spdlog's bundled copy
+set(SPDLOG_FMT_EXTERNAL ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(spdlog)

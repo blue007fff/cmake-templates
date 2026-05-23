@@ -10,5 +10,5 @@ set(CMAKE_CXX_EXTENSIONS OFF)  # use -std=c++20, not -std=gnu++20
 include(cmake/deps.cmake)
 
 add_executable(WithDeps src/main.cpp)
-# fmt::fmt is the namespaced target exported by fmtlib
-target_link_libraries(WithDeps PRIVATE fmt::fmt)
+# fmt::fmt, spdlog::spdlog — 라이브러리가 export한 네임스페이스 타겟. 헤더 경로와 링크 설정이 자동으로 전파됨
+target_link_libraries(WithDeps PRIVATE fmt::fmt spdlog::spdlog)

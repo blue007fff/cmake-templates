@@ -1,7 +1,12 @@
 #include <fmt/core.h>
+#include <spdlog/spdlog.h>
 
 int main() {
-    // fmt::print is a type-safe, fast alternative to std::cout
-    fmt::print("Hello, {}!\n", "World");
+    fmt::print("Hello, {}!\n", "fmtlib");
+
+    spdlog::info("¾È³ç, {}!", "spdlog");
+    spdlog::warn("this is a warning");
+    spdlog::error("something went wrong: {}", 42);
+
     return 0;
 }
