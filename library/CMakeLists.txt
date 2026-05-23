@@ -35,23 +35,27 @@ if(BUILD_TESTS)
     add_subdirectory(tests)
 endif()
 
+# CMakePackageConfigHelpers: find_package() 지원을 위한 config 파일 생성 도우미
 include(CMakePackageConfigHelpers)
 
 install(TARGETS mylib
     EXPORT MyLibTargets
-    ARCHIVE DESTINATION lib
-    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib   # static library (.lib / .a)
+    LIBRARY DESTINATION lib   # shared library (.so / .dylib) — Windows DLL은 RUNTIME에 해당
 )
+# MyLib:: 네임스페이스로 export — 소비자는 target_link_libraries(... MyLib::mylib) 로 사용
 install(EXPORT MyLibTargets
     FILE       MyLibTargets.cmake
     NAMESPACE  MyLib::
     DESTINATION lib/cmake/MyLib
 )
+# find_package(MyLib) 가 동작하도록 MyLibConfig.cmake 생성
 configure_package_config_file(
     cmake/MyLibConfig.cmake.in
     ${CMAKE_CURRENT_BINARY_DIR}/MyLibConfig.cmake
     INSTALL_DESTINATION lib/cmake/MyLib
 )
+# find_package(MyLib 1.0) 버전 체크를 위한 파일 생성
 write_basic_package_version_file(
     ${CMAKE_CURRENT_BINARY_DIR}/MyLibConfigVersion.cmake
     VERSION ${PROJECT_VERSION}
