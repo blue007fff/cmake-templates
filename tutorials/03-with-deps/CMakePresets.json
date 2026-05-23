@@ -54,6 +54,17 @@
       "displayName": "MinGW Release",
       "inherits": "mingw-base",
       "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+    },
+    {
+      "name": "linux-debug",
+      "displayName": "Linux Debug",
+      "inherits": "base",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
     }
   ],
   "buildPresets": [
@@ -61,6 +72,7 @@
     { "name": "x64-release",        "configurePreset": "x64-release" },
     { "name": "x64-relwithdebinfo", "configurePreset": "x64-relwithdebinfo" },
     { "name": "mingw-debug",        "configurePreset": "mingw-debug" },
-    { "name": "mingw-release",      "configurePreset": "mingw-release" }
+    { "name": "mingw-release",      "configurePreset": "mingw-release" },
+    { "name": "linux-debug",        "configurePreset": "linux-debug" }
   ]
 }

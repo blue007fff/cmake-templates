@@ -39,6 +39,18 @@ if(BUILD_TESTS)
 endif()
 
 install(TARGETS MyApp RUNTIME DESTINATION bin)
+if(WIN32 AND DEFINED VCPKG_TARGET_TRIPLET)
+    install(DIRECTORY "${CMAKE_BINARY_DIR}/vcpkg_installed/${VCPKG_TARGET_TRIPLET}/debug/bin/"
+        DESTINATION bin
+        CONFIGURATIONS Debug
+        FILES_MATCHING PATTERN "*.dll"
+    )
+    install(DIRECTORY "${CMAKE_BINARY_DIR}/vcpkg_installed/${VCPKG_TARGET_TRIPLET}/bin/"
+        DESTINATION bin
+        CONFIGURATIONS Release RelWithDebInfo MinSizeRel
+        FILES_MATCHING PATTERN "*.dll"
+    )
+endif()
 install(TARGETS core utils
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
