@@ -12,22 +12,47 @@
       }
     },
     {
+      "name": "windows-base",
+      "hidden": true,
+      "inherits": "base"
+    },
+    {
+      "name": "mingw-base",
+      "hidden": true,
+      "inherits": "base",
+      "cacheVariables": {
+        "VCPKG_TARGET_TRIPLET": "x64-mingw-dynamic"
+      }
+    },
+    {
       "name": "x64-debug",
       "displayName": "x64 Debug",
-      "inherits": "base",
+      "inherits": "windows-base",
       "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
     },
     {
       "name": "x64-release",
       "displayName": "x64 Release",
-      "inherits": "base",
+      "inherits": "windows-base",
       "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
     },
     {
       "name": "x64-relwithdebinfo",
       "displayName": "x64 RelWithDebInfo",
-      "inherits": "base",
+      "inherits": "windows-base",
       "cacheVariables": { "CMAKE_BUILD_TYPE": "RelWithDebInfo" }
+    },
+    {
+      "name": "mingw-debug",
+      "displayName": "MinGW Debug",
+      "inherits": "mingw-base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+    },
+    {
+      "name": "mingw-release",
+      "displayName": "MinGW Release",
+      "inherits": "mingw-base",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
     },
     {
       "name": "linux-debug",
@@ -45,12 +70,19 @@
     { "name": "x64-debug",          "configurePreset": "x64-debug" },
     { "name": "x64-release",        "configurePreset": "x64-release" },
     { "name": "x64-relwithdebinfo", "configurePreset": "x64-relwithdebinfo" },
+    { "name": "mingw-debug",        "configurePreset": "mingw-debug" },
+    { "name": "mingw-release",      "configurePreset": "mingw-release" },
     { "name": "linux-debug",        "configurePreset": "linux-debug" }
   ],
   "testPresets": [
     {
       "name": "x64-debug",
       "configurePreset": "x64-debug",
+      "output": { "verbosity": "verbose" }
+    },
+    {
+      "name": "mingw-debug",
+      "configurePreset": "mingw-debug",
       "output": { "verbosity": "verbose" }
     },
     {
