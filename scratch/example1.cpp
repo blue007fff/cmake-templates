@@ -1,6 +1,7 @@
 #include <iostream>
 
-int main() {
+int main() 
+{
     std::cout << "example1\n";
     return 0;
 }
