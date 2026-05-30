@@ -1,6 +1,16 @@
-# @PACKAGE_INIT@ expands to helper macros (set_and_check, check_required_components)
-# and makes ${PACKAGE_PREFIX_DIR} point to the install root at find_package() time.
+# MyLibConfig.cmake.in — find_package(MyLib) 의 진입점 템플릿.
+# configure_package_config_file() 이 이 파일을 처리해 MyLibConfig.cmake 를 생성함.
+#
+# @PACKAGE_INIT@: configure_package_config_file() 이 아래 두 헬퍼로 치환:
+#   set_and_check(<var> <path>): 경로가 존재하는지 확인하며 변수에 저장
+#   check_required_components(<pkg>): REQUIRED 로 요청한 컴포넌트가 모두 있는지 확인
+#   ${PACKAGE_PREFIX_DIR}: 설치 루트 경로를 자동으로 계산해 제공
 @PACKAGE_INIT@
 
+# MyLibTargets.cmake: install(EXPORT MyLibTargets ...) 로 생성된 파일.
+# MyLib::mylib imported target 이 여기에 정의되어 있음.
 include("${CMAKE_CURRENT_LIST_DIR}/MyLibTargets.cmake")
+
+# find_package(MyLib REQUIRED COMPONENTS foo) 처럼 컴포넌트를 지정한 경우
+# 요청한 컴포넌트가 모두 존재하는지 확인. 없으면 오류 발생.
 check_required_components(MyLib)
