@@ -13,6 +13,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)  # use -std=c++20, not -std=gnu++20
 
+option(BUILD_TESTS "Build tests" ON)
+
 include(cmake/deps.cmake)
 
 add_subdirectory(libs/core)
@@ -21,7 +23,18 @@ add_subdirectory(libs/utils)
 add_executable(MyApp src/main.cpp)
 target_link_libraries(MyApp PRIVATE core utils spdlog::spdlog)
 
-option(BUILD_TESTS "Build tests" ON)
+# 컴파일러 경고 설정 — 이 프로젝트의 모든 타겟에 적용
+# MSVC : /W4  (0~4 단계, W4가 권장 수준. /Wall은 표준 라이브러리 경고까지 포함해 너무 많음)
+# GCC/Clang : -Wall (기본 경고) -Wextra (추가 경고) -Wpedantic (표준 준수 검사)
+# PRIVATE: 이 타겟 빌드에만 적용, 소비자에게 전파 안 함
+foreach(target IN ITEMS MyApp core utils)
+    if(MSVC)
+        target_compile_options(${target} PRIVATE /W4)
+    else()
+        target_compile_options(${target} PRIVATE -Wall -Wextra -Wpedantic)
+    endif()
+endforeach()
+
 if(BUILD_TESTS)
     include(FetchContent)
     FetchContent_Declare(
@@ -52,6 +65,7 @@ if(WIN32 AND DEFINED VCPKG_TARGET_TRIPLET)
     )
 endif()
 install(TARGETS core utils
+    RUNTIME DESTINATION bin   # shared library Windows DLL (.dll)
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
 )

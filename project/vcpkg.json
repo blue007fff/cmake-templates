@@ -1,6 +1,7 @@
 {
     "name": "my-project",
     "version": "0.1.0",
+    "builtin-baseline": "c9e4056f04448359c677cff0f1f4d01401fa9270",
     "dependencies": [
         "fmt",
         "spdlog"

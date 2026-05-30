@@ -16,6 +16,8 @@ include(FetchContent)
 #     FetchContent_MakeAvailable(fmt)
 # endif()
 #
+# vcpkg 있는 환경  → find_package 성공 → FetchContent 건너뜀
+# vcpkg 없는 환경  → find_package 실패 → FetchContent로 소스 빌드 (이중 모드)
 find_package(spdlog CONFIG QUIET)
 if(NOT spdlog_FOUND)
     FetchContent_Declare(spdlog
@@ -24,5 +26,8 @@ if(NOT spdlog_FOUND)
         GIT_SHALLOW    TRUE
         SYSTEM)
     set(SPDLOG_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+    # fmt를 별도로 FetchContent 추가할 경우 아래 설정 필요.
+    # 없으면 spdlog 내장 fmt와 충돌해 ODR 위반 발생.
+    # set(SPDLOG_FMT_EXTERNAL ON CACHE BOOL "" FORCE)
     FetchContent_MakeAvailable(spdlog)
 endif()

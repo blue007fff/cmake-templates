@@ -17,6 +17,13 @@ target_include_directories(mylib PUBLIC
     $<INSTALL_INTERFACE:include>
 )
 
+# 컴파일러 경고 설정
+if(MSVC)
+    target_compile_options(mylib PRIVATE /W4)
+else()
+    target_compile_options(mylib PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+
 option(BUILD_TESTS "Build tests" ON)
 if(BUILD_TESTS)
     include(FetchContent)
@@ -40,8 +47,9 @@ include(CMakePackageConfigHelpers)
 
 install(TARGETS mylib
     EXPORT MyLibTargets
+    RUNTIME DESTINATION bin   # shared library Windows DLL (.dll)
     ARCHIVE DESTINATION lib   # static library (.lib / .a)
-    LIBRARY DESTINATION lib   # shared library (.so / .dylib) — Windows DLL은 RUNTIME에 해당
+    LIBRARY DESTINATION lib   # shared library (.so / .dylib)
 )
 # MyLib:: 네임스페이스로 export — 소비자는 target_link_libraries(... MyLib::mylib) 로 사용
 install(EXPORT MyLibTargets
